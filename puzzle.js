@@ -25,7 +25,11 @@ function renderPuzzle() {
     taskItem.className = "task";
     taskItem.textContent = task;
     taskItem.draggable = true;
+
+    // Add drag-and-touch events
     taskItem.ondragstart = event => onDragStart(event, task);
+    taskItem.ontouchstart = event => onTouchStart(event, task);
+
     taskList.appendChild(taskItem);
   });
   container.appendChild(taskList);
@@ -36,36 +40,42 @@ function renderPuzzle() {
   Students.forEach(student => {
     const studentDiv = document.createElement("div");
     studentDiv.className = "student";
-    studentDiv.innerHTML = `<h3>${student}</h3><div class="drop-zone" 
-        data-student="${student}" ondrop="onDrop(event)" ondragover="onDragOver(event)">
-        Drop tasks here</div>`;
+    studentDiv.innerHTML = `<h3>${student}</h3>
+      <div class="drop-zone" 
+        data-student="${student}" 
+        ondrop="onDrop(event)" 
+        ondragover="onDragOver(event)"
+        ontouchend="onTouchEnd(event)"
+      >
+        Drop tasks here
+      </div>`;
     studentContainer.appendChild(studentDiv);
   });
   container.appendChild(studentContainer);
 
-// Add buttons
-const buttonContainer = document.createElement("div");
-buttonContainer.className = "button-container";
+  // Add buttons
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "button-container";
 
-// Add Clue Button first
-const clueButton = document.createElement("button");
-clueButton.textContent = "Show Clues";
-clueButton.onclick = showCluePopup;
-buttonContainer.appendChild(clueButton);
+  // Add Clue Button first
+  const clueButton = document.createElement("button");
+  clueButton.textContent = "Show Clues";
+  clueButton.onclick = showCluePopup;
+  buttonContainer.appendChild(clueButton);
 
-// Check Solution Button
-const checkButton = document.createElement("button");
-checkButton.textContent = "Check Solution";
-checkButton.onclick = checkSolution;
-buttonContainer.appendChild(checkButton);
+  // Check Solution Button
+  const checkButton = document.createElement("button");
+  checkButton.textContent = "Check Solution";
+  checkButton.onclick = checkSolution;
+  buttonContainer.appendChild(checkButton);
 
-// Retry Button
-const retryButton = document.createElement("button");
-retryButton.textContent = "Retry";
-retryButton.onclick = resetPuzzle;
-buttonContainer.appendChild(retryButton);
+  // Retry Button
+  const retryButton = document.createElement("button");
+  retryButton.textContent = "Retry";
+  retryButton.onclick = resetPuzzle;
+  buttonContainer.appendChild(retryButton);
 
-container.appendChild(buttonContainer);
+  container.appendChild(buttonContainer);
 }
 
 // Drag-and-drop event handlers
@@ -77,7 +87,32 @@ function onDragOver(event) {
   event.preventDefault();
 }
 
-//Ondrop
+// On touch start
+function onTouchStart(event, task) {
+  event.preventDefault();
+  event.target.setAttribute("data-dragging", task);
+}
+
+// On touch end
+function onTouchEnd(event) {
+  const task = document.querySelector("[data-dragging]").getAttribute("data-dragging");
+  const dropZone = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+  const student = dropZone.getAttribute("data-student");
+
+  if (student && task) {
+    studentTasks[student].push(task);
+
+    // Display the dropped task in the drop zone
+    const droppedTask = document.createElement("div");
+    droppedTask.textContent = task;
+    droppedTask.className = "dropped-task";
+    dropZone.appendChild(droppedTask);
+  }
+
+  document.querySelector("[data-dragging]").removeAttribute("data-dragging");
+}
+
+// On drop
 function onDrop(event) {
   event.preventDefault();
   const task = event.dataTransfer.getData("text/plain");
@@ -92,6 +127,33 @@ function onDrop(event) {
     droppedTask.className = "dropped-task";
     event.target.appendChild(droppedTask);
   }
+}
+
+// Add the confetti effect using Canvas Confetti
+function launchConfetti() {
+  const duration = 3 * 1000; // 3 seconds
+  const end = Date.now() + duration;
+
+  const frame = () => {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 },
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 },
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  };
+
+  frame();
 }
 
 // Check the solution
@@ -120,6 +182,11 @@ function checkSolution() {
 
   const popupContainer = document.getElementById("popup-container");
   popupContainer.style.display = "block";
+
+  // Trigger confetti effect if the solution is correct
+  if (correct) {
+    launchConfetti();
+  }
 }
 
 // Function to close the popup
@@ -155,11 +222,6 @@ function resetPuzzle() {
   renderPuzzle();
 }
 
-// Initialize the drag-and-drop interface
-document.addEventListener("DOMContentLoaded", () => {
-  renderPuzzle();
-});
-
 // Function to show the clue popup
 function showCluePopup() {
   document.getElementById("overlay").style.display = "block";
@@ -172,8 +234,7 @@ function closeCluePopup() {
   document.getElementById("clue-popup").style.display = "none";
 }
 
-// Initialize the drag-and-drop interface and clue button
+// Initialize the drag-and-drop interface
 document.addEventListener("DOMContentLoaded", () => {
   renderPuzzle();
-  addClueButton();
 });
