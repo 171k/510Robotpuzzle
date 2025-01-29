@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discrete Robot Puzzle</title>
+  <link rel="icon" href="/img/icon.png" type="image/icon type">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<!--Start of body-->
+<body>
+  <h1>Puzzle 2: Robot task  <i class='fas fa-robot'></i></h1>
+  <h4>Task: Figure out which students own which types of robots and which tasks they cover</h4>
+  <div id="puzzle-container"></div>
+  <div id="result-container"></div>
+
+  <!-- Clue Popup -->
+  <div id="overlay"></div>
+  <div id="clue-popup">
+    <h3>Clues</h3>
+    <ul>
+      <li>John owns a Coding robot but does not have a Cleaning robot</li>
+      <li>The Gardening robot belongs to Liam, who does not have a Security robot.</li>
+      <li>Mia has a Cooking robot and a Cleaning robot.</li>
+      <li>Noah does not own the Gardening robot and has neither Cooking nor Cleaning robots.</li>
+      <li>Kate owns the Security robot but does not own a Gardening robot.</li>
+      <li>Mia does not have a Coding robot</li>
+      <li>The Cooking robot does not belong to Liam.</li>
+    </ul>
+    <button onclick="closeCluePopup()">Close</button>
+  </div>
+
+  <!--This is for the clue popup container-->
+  <div id="popup-container" class="popup-container" style="display: none;">
+    <div class="popup-content">
+      <span id="popup-message"></span>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <!--link to the puzzle js file-->
+  <script src="puzzle.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+body {
+    font-family: Pangolin;
+    margin: 20px;
+    background-image: url(img/chalkboard.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #F5F5F5;
+  }
+
+  /*font imported*/
+.pangolin-regular {
+    font-family: "Pangolin", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /*centralized all words*/
+  h1, h3, h4 {
+    text-align: center;
+  }
+
+  #puzzle-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  /*task box*/
+  .task-list {
+    border: 1px solid #000000;
+    padding: 10px;
+    padding-top:2px;
+    background: #4E4E4E;
+    width: 200px;
+    text-align: center;
+    border-radius: 2px;
+  }
+
+  /*task label*/
+  .task {
+    padding: 8px;
+    margin: 8px 0;
+    background: #3B6B3D;
+    color: white;
+    cursor: grab;
+  }
+  .task:hover {
+    background: #244325;
+  }
+
+  /*student box*/
+  .student-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding-top: 0px;
+    margin-top: 5px;
+  }
+  .student {
+    border: 1px solid #272727;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    background: #4E4E4E;
+  }
+
+  /*the drop zone under student name*/
+  .drop-zone {
+    border: 2px dashed #bbb;
+    padding: 20px;
+    margin-top: 10px;
+    background: #3a3a3a;
+    min-height: 100px;
+  }
+  .dropped-task {
+    background: #3B6B3D;
+    color: white;
+    padding: 5px;
+    margin: 5px 0;
+  }
+
+  /*all buttons*/
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  #result-container {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  /* Popup Box */
+  #clue-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; 
+    max-width: 90%;
+    background: #182914;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+    font-size: 18px;
+    display: none;
+  }
+  #clue-popup p {
+    margin: 10px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #clue-popup button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #3B6B3D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #clue-popup button:hover {
+    background: #244325;
+  }
+
+  li {
+    margin-bottom: 20px; 
+  }
+
+  .popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+    background: #182914;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+    font-size: 18px;
+    display: none;
+  }
+  
+  .popup-content {
+    background-color: #182914;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  /*all buttons*/
+button {
+    background: transparent;
+    color: white;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16px;
+    border: 3px solid white;
+    padding: 10px 20px;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease-in-out;
+    border-radius: 10%;
+  }
+
+button:hover {
+    box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.5);
+    transform: translate(-2px, -2px);
+}
+
